@@ -1,38 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int * mat2vet(int ** mat, int lin, int col){
-    int * vet, z = (lin * col), i, j, k = 0;
-    vet = (int *) malloc (sizeof(int) * (z));
-    for(i = 0; i < lin; i++){
-        for (j = 0; j < col; j++){
-            vet[k] = mat[i][j];
-            k++;
-        }
-    }
-    return vet;
+typedef struct prod{
+  char misc[51];
+  float preco;
+}TPROD;
+
+int char_cmp (const void * p1, const void * p2){
+	char *c1 = (char *) p1;
+	char *c2 = (char *) p2;
+	return strcmp(c1,c2);	
+}
+
+void ordena_a(TPROD **vet, int n){
+	
+
 }
 
 int main(void){
-    int **mat,*vet_final;
-    int lin, col;
-    scanf("%d%d",&lin,&col);
-    if (lin <= 0)return 0;
-    else if (col <= 0)return 0;
-    else{
-        mat = (int **) malloc (sizeof(int *) * lin);
-        int i,j;
-        for(i = 0; i < lin; i++){
-            mat[i] = (int *) malloc (sizeof(int) * col);
-        }
-        for(i = 0; i < lin; i++){
-            for(j = 0; j < col; j++){
-                scanf("%d",&mat[i][j]);
-            }
-        }
-        vet_final = mat2vet(mat,lin,col);
-        for(i = 0; i < (lin * col); i++) printf("%d\t",vet_final[i]);
-        free(mat);
-        free(vet_final);
-    }return 0;
+  int n;
+  do{
+    scanf("%d", &n);
+    if(n > 0)break;
+  }while(1);
+
+  TPROD **vet = (TPROD **) malloc(sizeof(TPROD *) * n);
+  int i;
+  for(i = 0; i < n; i++){
+    vet[i] = (TPROD *) malloc(sizeof(TPROD));
+    scanf(" %50[^\n]", vet[i]->misc);
+    scanf("%f", &vet[i]-> preco);
+  }
+  ordena_a(vet, n);
+  for(i = 0; i < n; i++){
+    printf("%s\t%f\n", vet[i]->misc, vet[i]-> preco);
+    free(vet[i]);
+  }
+  free(vet);
+
+  return 0;
 }
